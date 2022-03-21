@@ -1,17 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+     Title: {{title}}
+     <input v-model="title">
+     <button id="btn" type="button" @click="setTitle">Set</button>
+     <button id="btn2" type="button" @click="saveContent">Save</button>
+     <button id="btn3" type="button" @click="loadContent">Load</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data:() => ({
+      title: 'Vue.js'
+  }),
+  methods: {
+    setTitle:function() {
+      // this.title="pressed"
+      // console.log('pressed')
+      // window.electronAPI.setTitle(this.title)
+    },
+    saveContent:function (){
+      console.log('save')
+      window.electronAPI.saveContent(this.title)
+    },
+    loadContent:async function (){
+      const content = await window.electronAPI.content()
+      console.log(content)
+    }    
   }
 }
 </script>
